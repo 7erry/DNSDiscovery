@@ -1,0 +1,2 @@
+# DNSDiscovery
+Hazelcast Discovery SPI
