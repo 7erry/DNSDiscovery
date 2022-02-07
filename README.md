@@ -54,6 +54,7 @@ Make sure that:
                 <!-- class equals to the DiscoveryStrategy not the factory! -->
                 <discovery-strategy enabled="true" class="com.hazelcast.spi.discovery.DNSDiscoveryStrategy">
                     <properties>
+                        <property name="port">5801</property>
                         <property name="site-domain">cluster.local</property>
                     </properties>
                 </discovery-strategy>
