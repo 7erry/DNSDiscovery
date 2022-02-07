@@ -22,6 +22,7 @@ import com.hazelcast.spi.discovery.DiscoveryNode;
 import com.hazelcast.spi.discovery.DiscoveryStrategy;
 import com.hazelcast.spi.discovery.DiscoveryStrategyFactory;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
@@ -29,7 +30,12 @@ import static java.util.Collections.singletonList;
 
 public class DNSDiscoveryStrategyFactory implements DiscoveryStrategyFactory {
 
-    private static final Collection<PropertyDefinition> PROPERTIES = singletonList(DNSDiscoveryConfiguration.DOMAIN);
+    //private static final Collection<PropertyDefinition> PROPERTIES = singletonList(DNSDiscoveryConfiguration.DOMAIN);
+    private static final Collection<PropertyDefinition> PROPERTIES = new ArrayList<PropertyDefinition>();
+    {
+        PROPERTIES.add(DNSDiscoveryConfiguration.DOMAIN);
+        PROPERTIES.add(DNSDiscoveryConfiguration.PORT);
+    }
 
     @Override
     public Class<? extends DiscoveryStrategy> getDiscoveryStrategyType() {

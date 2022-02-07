@@ -28,6 +28,7 @@ public final class DNSDiscoveryConfiguration {
      * IP addresses.
      */
     public static final PropertyDefinition DOMAIN = new SimplePropertyDefinition("site-domain", PropertyTypeConverter.STRING);
+    public static final PropertyDefinition PORT = new SimplePropertyDefinition("port", PropertyTypeConverter.INTEGER);
 
     // prevent instantiation
     private DNSDiscoveryConfiguration() {

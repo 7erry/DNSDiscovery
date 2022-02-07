@@ -41,6 +41,7 @@ public class DNSDiscoveryStrategy extends AbstractDiscoveryStrategy {
     private static final String HOSTS_WINDOWS = "%SystemRoot%\\system32\\drivers\\etc\\hosts";
 
     private final String siteDomain;
+    private final Integer port;
 
     DNSDiscoveryStrategy(ILogger logger, Map<String, Comparable> properties) {
         super(logger, properties);
@@ -48,6 +49,8 @@ public class DNSDiscoveryStrategy extends AbstractDiscoveryStrategy {
         // make it possible to override the value from the configuration on
         // the system's environment or JVM properties -Ddiscovery.hosts.site-domain=some.domain
         this.siteDomain = getOrNull("discovery.hosts", DNSDiscoveryConfiguration.DOMAIN);
+        // the system's environment or JVM properties -Ddiscovery.port=1541
+        this.port = getOrNull("discovery.port", DNSDiscoveryConfiguration.PORT);
     }
 
     @Override
@@ -92,7 +95,11 @@ public class DNSDiscoveryStrategy extends AbstractDiscoveryStrategy {
             Map<String, Object> attributes = Collections.<String, Object>singletonMap("hostname", hostname);
 
             InetAddress inetAddress = mapToInetAddress(address);
-            Address addr = new Address(inetAddress, NetworkConfig.DEFAULT_PORT);
+            Address addr = null;
+            if (port == null)
+                addr = new Address(inetAddress, NetworkConfig.DEFAULT_PORT);
+            else
+                addr = new Address(inetAddress, port);
 
             discoveredNodes.add(new SimpleDiscoveryNode(addr, attributes));
         }
@@ -149,4 +156,5 @@ public class DNSDiscoveryStrategy extends AbstractDiscoveryStrategy {
             throw new RuntimeException("Could not resolve ip address", e);
         }
     }
+
 }
